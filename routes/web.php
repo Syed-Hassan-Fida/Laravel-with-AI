@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,18 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/home-page', function(){
-    return view('user_view.index');
-})->name('home.page');
+Route::middleware(['auth'])->group(function(){
+
+    Route::get('/home-page', [UserController::class, 'index'])->name('home.page');
+
+    Route::get('/blog-generator-view', [UserController::class, 'blogGeneratorIndex'])->name('blog-generator-view');
+    Route::post('/blog-generator', [UserController::class, 'blogGenerator'])->name('blog-generator');
+
+    Route::get('/image-view', [UserController::class, 'imageView'])->name('image-view');
+    Route::post('/image-generator', [UserController::class, 'imageGenerator'])->name('image-generator');
+
+    Route::get("download-image", [UserController::class, 'imageDownload'])->name("download-image");
+});
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');

@@ -35,7 +35,9 @@
                                     <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
                                 </li>
                             @else
-
+                                <li class="nav-item">
+                                    <a href="{{ route('home.page') }}" class="nav-link">Search</a>
+                                </li>
                             @endif
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
@@ -220,7 +222,7 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2022</div></footer>
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; By Source Code 2022</div></footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

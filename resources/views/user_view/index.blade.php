@@ -34,16 +34,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('index') }}">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('index') }}">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('index') }}">Contact</a></li>
                         @auth
                             @if (Auth::user()->user_role == 'admin')
                                 <li class="nav-item">
                                     <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
                                 </li>
-                            @else
-
+                            @elseif(Auth::user()->user_role == 'client')
+                                <li class="nav-item">
+                                    <a href="{{ route('home.page') }}" class="nav-link">Search</a>
+                                </li>
                             @endif
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
@@ -92,10 +94,10 @@
                                 <div class="d-flex flex-row align-items-center">
                                     <div class="icon"> <i class="fa-solid fa-blog"></i> </div>
                                     <div class="ms-2 c-details">
-                                        <h6 class="mb-0">Blog Intro Generation</h6> <span>Rating: 4.6</span>
+                                        <h6 class="mb-0">Text Generation</h6> <span>Rating: 4.6</span>
                                     </div>
                                 </div>
-                                <div class="badge"> <a href="" class="btn"><span>AI Tool</span></a> </div>
+                                <div class="badge"> <a href="{{ route('blog-generator-view') }}" class="btn"><span>AI Tool</span></a> </div>
                             </div>
                             <div class="mt-5">
                                 <h3 class="heading">AI<br>BLOG-Generation</h3>
@@ -114,13 +116,13 @@
                                 <div class="d-flex flex-row align-items-center">
                                     <div class="icon"> <i class="fa-solid fa-blog"></i> </div>
                                     <div class="ms-2 c-details">
-                                        <h6 class="mb-0">Blog Intro Generation</h6> <span>Rating: 4.6</span>
+                                        <h6 class="mb-0">Image Generation</h6> <span>Rating: 4.6</span>
                                     </div>
                                 </div>
-                                <div class="badge"> <a href="" class="btn"><span>AI Tool</span></a> </div>
+                                <div class="badge"> <a href="{{ route('image-view') }}" class="btn"><span>AI Tool</span></a> </div>
                             </div>
                             <div class="mt-5">
-                                <h3 class="heading">AI<br>BLOG-Generation</h3>
+                                <h3 class="heading">AI<br>Qualty Images</h3>
                                 <div class="mt-5">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -272,7 +274,7 @@
                 padding-bottom: 3px;
                 border-radius: 5px;
                 display: flex;
-                color: #f1bb09be;
+                color: #ff9900;
                 justify-content: center;
                 align-items: center
             }
