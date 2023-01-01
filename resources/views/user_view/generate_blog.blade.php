@@ -78,7 +78,7 @@
             <div class="container mt-5 pt-5">
                 <h1>Generate Blog</h1>
                 <p>Hint: <span style="color: red;"> Mention the topic and keyword </span></p>
-                <div class="d-flex mb-4" style="color: rgb(24, 189, 24);">
+                <div class="mb-4" style="color: rgb(24, 189, 24);">
 
                     @if ($text != '')
                         <p>Search Result</p><br>

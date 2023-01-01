@@ -26,12 +26,13 @@ class UserController extends Controller
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
         $complete = $open_ai->completion([
-            'model' => 'davinci-instruct-beta-v3',
+            // 'model' => 'davinci-instruct-beta-v3',
+            "model" => "text-davinci-003",
             'prompt' => $request->prompt,
             // 'prompt' => "Expand the blog section in to a detailed professional , witty and clever explanation."." web development",
             'temperature' => 0.9,
             "max_tokens" => (int)$request->tokens,
-            "frequency_penalty" => 0,
+            "frequency_penalty" => 0.6,
             "presence_penalty" => 0.6,
         ]);
 
@@ -54,6 +55,7 @@ class UserController extends Controller
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
         $complete = $open_ai->image([
+
             "prompt" => $request->prompt,
             "n" => 1,
             "size" => $request->type,

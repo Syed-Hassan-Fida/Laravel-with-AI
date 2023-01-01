@@ -86,7 +86,7 @@
                         <a href="{{ route("download-image", ['id' => $id ]) }}" class="btn btn-success mt-4">Download</a>
 
                     @else
-                        <span style="color: red;> Search result will be shown here... </span>
+                        <span style="color: red;"> Search result will be shown here... </span>
                     @endif
 
                 </div>
