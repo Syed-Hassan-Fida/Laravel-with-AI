@@ -76,19 +76,25 @@
 
         <div class="container mt-5 pt-5">
             <div class="container mt-5 pt-5">
+                <h1>Upscale/Enhance Image</h1>
+                <form action="{{ route('scale') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file" value="">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <br>
                 <h1>Generate Image</h1>
                 <p>Hint: <span style="color: red;"> Give A specific prompt for good results </span></p>
-                <div class="mb-4" style="color: rgb(24, 189, 24);">
-
-                    @if ($org_url)
+                <div class="row mb-4" id="data" style="color: rgb(24, 189, 24);">
+                    @if ($results)
                         <p>Search Result</p><br>
-                        <img src="{{ $org_url }}" alt="Generated Image"><br>
-                        <a href="{{ route("download-image", ['id' => $id ]) }}" class="btn btn-success mt-4">Download</a>
-
-                    @else
-                        <span style="color: red;"> Search result will be shown here... </span>
+                        @foreach($results->data as $key=> $item)
+                            <div class="col-md-12">
+                                <img src="{{ $item->url }}" alt="Generated Image"><br>
+                                <a href="{{ route("download-image", ['id' => $id[$key] ]) }}" class="btn btn-success mt-4 mb-3">Download</a>
+                            </div>
+                        @endforeach
                     @endif
-
                 </div>
                 <!-- Button trigger modal-->
                 <div class="text-center mt-4 mb-4">
@@ -111,25 +117,38 @@
                                         @csrf
                                         <div class="md-form mb-4">
                                             <i class="fa fa-align-justify" aria-hidden="true"></i>
-                                            <input type="text" id="defaultForm-email" class="form-control validate" name="prompt" value="">
+                                            <input type="text" id="defaultForm-email" class="prompt form-control validate" name="prompt" value="" required>
                                             <label data-error="wrong" data-success="right" for="defaultForm-email">Your Prompt</label>
+                                        </div>
+
+                                        <div class="md-form mb-4">
+                                            <i class="fa fa-align-justify" aria-hidden="true"></i>
+                                            <input type="number" class="number form-control validate" id="defaultForm-email" name="numberofImages" value="" required>
+                                            <label data-error="wrong" data-success="right" for="defaultForm-email">Number of Images</label>
                                         </div>
 
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                              <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                                              <label class="input-group-text" for="inputGroupSelect01">Options (Image Size)</label>
                                             </div>
-                                                <select class="custom-select" id="inputGroupSelect01" name="type">
-                                                    <option selected>Choose...</option>
+                                                <select class="custom-select options" id="inputGroupSelect01" name="type" required>
+                                                    <option selected value="">Choose...</option>
                                                     <option value="256x256">256x256</option>
                                                     <option value="512x512">512x512</option>
                                                     <option value="1024x1024">1024x1024</option>
                                                 </select>
                                             </div>
                                         </div>
+                                        {{-- preloader --}}
+                                        <div class="md-form mb-3" id="loader">
+                                            <div class="d-flex justify-content-center ml-5 mr-5">
+                                                <strong style="color: red;">Your Request Is Processing...</strong>
+                                                <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                                            </div>
+                                        </div>
 
                                         <div class="modal-footer d-flex justify-content-center">
-                                        <button class="btn btn-default" type="submit">Generate</button>
+                                        <button class="btn btn-default" id="generate" type="submit">Generate</button>
                                         </div>
                                     </form>
 
@@ -240,5 +259,15 @@
                 })
             })
         </script> --}}
+        <script>
+            $("#loader").hide()
+            $("#generate").click(function(){
+
+                if($("#data").text() ==+ "" && $(".prompt").val() != ""  &&  $(".number").val() != "" &&  $(".options").val() != "" ){
+                    $("#loader").show()
+                }
+            })
+
+        </script>
     </body>
 </html>
